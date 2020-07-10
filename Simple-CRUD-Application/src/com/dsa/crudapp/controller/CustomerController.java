@@ -2,6 +2,8 @@ package com.dsa.crudapp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,16 +57,14 @@ public class CustomerController {
 	
 	
 	@PostMapping("/saveCustomer")
-	public String saveCustomer(@ModelAttribute("customer")Customer theCustomer, BindingResult result, ModelMap model) {
+	public String saveCustomer(HttpServletRequest request) {
 		
-		if (result.hasErrors()) {
-            return "error";
-        }
-        model.addAttribute("firstName", theCustomer.getFirstName());
-        model.addAttribute("lastName", theCustomer.getLastName());
-        model.addAttribute("email", theCustomer.getEmail());
-		//save the customer using our service
-//		CustomerService.saveCustomer(theCustomer);
+		Customer theCustomer=new Customer();
+		theCustomer.setFirstName(request.getParameter("firstName").trim());
+		theCustomer.setLastName(request.getParameter("lastName").trim());
+		theCustomer.setEmail(request.getParameter("email").trim());
+		
+		CustomerService.saveCustomer(theCustomer);
 		
 		return "redirect:/customer/list";
 		
@@ -79,6 +79,19 @@ public class CustomerController {
 		return "redirect:/customer/list";
 		
 		
+	}
+	
+	@GetMapping("/search")
+	public String searchCustomers(@RequestParam("theSearchName") String theSearchName,
+									Model theModel) {
+
+		// search customers from the service
+		List<Customer> theCustomers = CustomerService.searchCustomers(theSearchName);
+				
+		// add the customers to the model
+		theModel.addAttribute("customers", theCustomers);
+
+		return "list-customers";		
 	}
 	
 	

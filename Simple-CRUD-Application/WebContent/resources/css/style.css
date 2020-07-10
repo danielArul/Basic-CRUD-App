@@ -5,27 +5,21 @@ html, body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	
 }
+.right { text-align: right; }
 
-
-th {
-	border-bottom: 1px solid gray;
-	background: none repeat scroll 0 0 #09c332;
-	padding: 10px;
-	color: #FFFFFF;
-}
-
-tr {
-	border-top: 1px solid gray;
+#mainTable{
+	
 	text-align: center;
 }
 
-tr:nth-child(even) {
-	background: #FFFFFF
+#mainTable th {
+	background: #0080ff;
+	color: #FFFFFF;	
 }
 
-tr:nth-child(odd) {
-	background: #BBBBBB
-}
+
+
+
 
 #wrapper {
 	

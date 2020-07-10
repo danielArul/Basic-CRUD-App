@@ -34,9 +34,26 @@
 		<div id="content">
 
 			<!--  add our html table here -->
+		
+		<table class="table" id="item1">
+			<tr>
+				<td>
+				<input type="button" value="Add Customer" class="btn btn-danger"
+				id="add-button" data-toggle="modal" data-target="#myModal" />
+				</td>
+				
+				<td class="right">
+				
+				<form:form action="search" method="GET">
+				Search customer: <input type="text" name="theSearchName" />
 
-			<input type="button" value="Add Customer" class="btn btn-danger"
-				id="add-button" data-toggle="modal" data-target="#myModal" action="showFormForAdd"/>
+				<input class="btn btn-danger" type="submit" value="Search" class="add-button" />
+				</form:form>
+								
+				</td>
+			</tr>
+		</table>
+		
 
 
 			<!-- Modal -->
@@ -50,59 +67,48 @@
 							<h4 class="modal-title">Add Customer</h4>
 						</div>
 						<div class="modal-body">
-							<form:form action="saveCustomer" modelAttribute="customer"
+
+							<form action="saveCustomer" modelAttribute="customer"
 								method="POST" path="id">
-								<!--  need to assocoate this data with customer id -->
-								<form:hidden path="id"/>
-								<table>
-									<tbody>
-										<tr>
-											<td><label>First name:</label></td>
-											<td><form:input path="firstName" /></td>
-										</tr>
-
-										<tr>
-											<td><label>Last name:</label></td>
-											<td><form:input path="lastName" /></td>
-										</tr>
-
-										<tr>
-											<td><label>Email:</label></td>
-											<td><form:input path="email" /></td>
-										</tr>
-
-										<tr>
-											<td><label></label></td>
-											<td><input type="submit" value="Save" class="save" /></td>
-										</tr>
 
 
-									</tbody>
-								</table>
+								<div class="form-group">
+									<label for="firstName">First Name:</label> <input
+										id="firstName" class="form-control"
+										placeholder="Enter First Name" name="firstName">
+								</div>
 
+								<div class="form-group">
+									<label for="lastName">Last Name:</label> <input id="lastName"
+										class="form-control" placeholder="Enter Last Name"
+										name="lastName">
+								</div>
 
-							</form:form>
+								<div class="form-group">
+									<label for="email">E-Mail:</label> <input type="email"
+										class="form-control" placeholder="Enter email" class="email"
+										id="email" name="email">
+								</div>
+
+								<button type="submit" class="btn btn-default">Submit</button>
+							</form>
 						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Submit</button>
-							<td><input type="submit" value="Save" class="save" />Saving</td>
-						</div>
+
 					</div>
 
 				</div>
 			</div>
 
-
-
-			<table class="table table-striped">
+			<table id="mainTable" class="table table-striped">
+			<thead>
 				<tr>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Email</th>
-					<th>Action</th>
+					<th class="text-center">First Name</th>
+					<th class="text-center">Last Name</th>
+					<th class="text-center">Email</th>
+					<th class="text-center">Action</th>
 				</tr>
+			</thead>
+			
 
 				<!-- loop over and print our customers -->
 				<c:forEach var="tempCustomer" items="${customers}">
@@ -120,7 +126,8 @@
 						<c:param name="customerId" value="${tempCustomer.id}" />
 
 					</c:url>
-
+					
+					
 
 					<tr>
 						<td>${tempCustomer.firstName}</td>
@@ -133,6 +140,7 @@
 						</td>
 
 					</tr>
+					
 
 				</c:forEach>
 
